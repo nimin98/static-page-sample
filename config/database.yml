@@ -45,7 +45,7 @@ test:
 production:
   adapter: postgresql
   encoding: unicode
-  database: static_app_production
+  database: postgres
   pool: 5
-  username: static_app
-  password:
+  username: minni
+  password: 791003
