@@ -10,9 +10,23 @@ class UsersController < ApplicationController
 
   def new
     # communication to the model side
-
+    @user  = User.new
     # communication to the view side
     @title = "Sign up"
+  end
+
+  def create
+    # communication to the model side
+    @user = User.new(params[:user])
+    if @user.save
+      # communication to the view side
+      flash[:success] = "Welcome to the Sample App!"
+      redirect_to user_path(@user)
+    else 
+      # communication to the view side
+      @title = "Sign up"
+      render 'new'
+    end
   end
 
 end
