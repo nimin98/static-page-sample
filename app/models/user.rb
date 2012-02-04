@@ -40,6 +40,7 @@ class User < ActiveRecord::Base
     encrypted_password == encrypt(submitted_password)
   end
 
+  # class function starting with "self"
   def self.authenticate(email, submitted_password)
     user = find_by_email(email)
     return nil  if user.nil?
@@ -47,6 +48,11 @@ class User < ActiveRecord::Base
   end
 
   private
+
+  def self.authenticate_with_salt(id, cookie_salt)
+    user = find_by_id(id)
+    (user && user.salt == cookie_salt) ? user : nil
+  end
 
   def encrypt_password
     # reset salt if it is the first time to create the password or password changes

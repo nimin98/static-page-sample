@@ -21,10 +21,14 @@ class UsersController < ApplicationController
     if @user.save
       # communication to the view side
       flash[:success] = "Welcome to the Sample App!"
+      sign_in @user
       redirect_to user_path(@user)
     else 
       # communication to the view side
       @title = "Sign up"
+      # reset password field
+      @user.password = ""
+      @user.password_confirmation = ""
       render 'new'
     end
   end
